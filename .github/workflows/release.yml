@@ -8,7 +8,7 @@ on:
 
 jobs:
   release:
-    runs-on: ubunutu-latest
+    runs-on: ubuntu-latest
     steps:
       - run: |
-          echo "Version: ${{ github.event.inputs.version }}"
+          ./release.sh ${{ github.event.inputs.version }}
