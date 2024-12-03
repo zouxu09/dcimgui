@@ -1,0 +1,14 @@
+name: Create Release
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Dear ImGui version tag'
+        required: true
+
+jobs:
+  release:
+    runs-on: ubunutu-latest
+    steps:
+      - run: |
+          echo "Version: ${{ github.event.inputs.version }}"
