@@ -11,5 +11,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@main
-      - run: |
+      - name: Generate
+        run: |
           ./release.sh ${{ github.event.inputs.version }}
+      - name: Commit & Push
+        run: |
+          git config --global user.name "GH Action"
+          git config --global user.email "none"
+          git add .
+          git commit -m "updated (${{ github.event.inputs.version }})"
+          git tag ${{ github.event.inputs.version }}
+          git push && git push --tags
