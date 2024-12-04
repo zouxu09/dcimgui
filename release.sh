@@ -9,5 +9,5 @@ source venv/bin/activate
 python3 -m pip install -r dear_bindings/requirements.txt
 
 mkdir -p src
-python3 dear_bindings/dear_bindings.py -o src/dcimgui --custom-namespace-prefix ig imgui/imgui.h
+python3 dear_bindings/dear_bindings.py -o src/cimgui --custom-namespace-prefix ig imgui/imgui.h
 cp imgui/*.h imgui/*.cpp imgui/LICENSE.txt src/
