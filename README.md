@@ -6,4 +6,4 @@ the new dear_bindings approach (https://github.com/dearimgui/dear_bindings).
 Uses the `ig` prefix and cimgui.h/cimgui.cpp filenames to be as compatible
 as possible with the 'legacy' cimgui bindings.
 
-Includes a matching copy of Dear ImGui.
+Includes a matching copy of Dear ImGui, versions are marked via git tags.
