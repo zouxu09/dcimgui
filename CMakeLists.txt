@@ -1,12 +1,13 @@
+# builds a combined C and C++ library called 'imgui'
 if (FIPS_IMPORT)
-    fips_begin_lib(cimgui)
+    fips_begin_lib(imgui)
         fips_src(src)
     fips_end_lib()
 else()
     cmake_minimum_required(VERSION 3.20)
-    set(CMAKE_CXX_STANDARD 14)
-    project(cimgui)
-    add_library(cimgui
+    set(CMAKE_CXX_STANDARD 11)
+    project(dcimgui)
+    add_library(imgui
         src/cimgui.cpp
         src/imgui_demo.cpp
         src/imgui_draw.cpp
@@ -15,9 +16,9 @@ else()
         src/imgui.cpp
     )
 endif()
-target_include_directories(cimgui PUBLIC src)
+target_include_directories(imgui PUBLIC src)
 if (FIPS_CLANG OR FIPS_GCC)
-    target_compile_options(cimgui PUBLIC -Wno-return-type-c-linkage)
+    target_compile_options(imgui PUBLIC -Wno-return-type-c-linkage -Wno-unused-function)
 elseif (FIPS_MSVC)
-    target_compile_options(cimgui PUBLIC /wd4190)
+    target_compile_options(imgui PUBLIC /wd4190)
 endif()
