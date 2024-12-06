@@ -3,8 +3,8 @@
 An version-tagged all-in-one [Dear ImGui](https://github.com/ocornut/imgui)
 source distribution repository for C and C++ coding with:
 
-- regular and docking versions of Dear ImGui (for C++)
-- C bindings for the regular and docking version (generated with the
+- regular and docking flavours of Dear ImGui
+- C bindings for both flavours (generated with the
   new [dear_bindings](https://github.com/dearimgui/dear_bindings) approach.
 
 The C bindings use the `ig` prefix and cimgui.h/cimgui.cpp filenames to be as
