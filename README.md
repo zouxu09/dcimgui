@@ -12,7 +12,7 @@ compatible as possible with the 'legacy' cimgui bindings (but please be aware
 that there are still significant differences to the legacy cimgui bindings).
 
 The CMakeLists.txt file can be used both from regular cmake projects and
-from fips projects (https://floooh.github.io/fips/) and defines to
+from fips projects (https://floooh.github.io/fips/) and defines two
 static link libraries (`imgui` and `imgui-docking`).
 
 NOTE: do not use the `imgui` and `imgui-docking` libraries together in the
