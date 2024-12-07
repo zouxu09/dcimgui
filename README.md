@@ -32,7 +32,9 @@ To use the C++ API:
 
 To use the Zig module:
 
-- add a dependency to `git+https://github.com/floooh/dcimgui.git#[version]` to
-  your build.zig.zon
+- add a dependency your build.zig.zon:
+    ```
+    zig fetch --save=cimgui git+https://github.com/floooh/dcimgui.git
+    ```
 - ...and see https://github.com/floooh/sokol-zig-imgui-sample/blob/main/build.zig
-  for how to integrate the `cimgui` module
+  for how to integrate the `cimgui` module with your Zig project
