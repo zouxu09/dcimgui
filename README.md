@@ -1,7 +1,7 @@
 [![Build](https://github.com/floooh/dcimgui/actions/workflows/build.yml/badge.svg)](https://github.com/floooh/dcimgui/actions/workflows/build.yml)
 
 An version-tagged all-in-one [Dear ImGui](https://github.com/ocornut/imgui)
-source distribution repository for C and C++ coding with:
+source distribution repository for C, C++ and Zig coding with:
 
 - regular and docking flavours of Dear ImGui
 - C bindings for both flavours (generated with the
@@ -29,3 +29,10 @@ To use the C++ API:
 
 - for regular version: link with `imgui` and include `imgui.h`
 - for the docking version: link with `imgui-docking` and include `imgui.h`
+
+To use the Zig module:
+
+- add a dependency to `git+https://github.com/floooh/dcimgui.git#[version]` to
+  your build.zig.zon
+- ...and see https://github.com/floooh/sokol-zig-imgui-sample/blob/main/build.zig
+  for how to integrate the `cimgui` module
