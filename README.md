@@ -32,7 +32,7 @@ To use the C++ API:
 
 To use the Zig module:
 
-- add a dependency your build.zig.zon:
+- add a dependency to your build.zig.zon:
     ```
     zig fetch --save=cimgui git+https://github.com/floooh/dcimgui.git
     ```
