@@ -1,10 +1,22 @@
 # builds a combined C and C++ library called 'imgui'
 if (FIPS_IMPORT)
     fips_begin_lib(imgui)
-        fips_src(src)
+    fips_files(
+        src/cimgui.cpp
+        src/imgui_demo.cpp
+        src/imgui_draw.cpp
+        src/imgui_tables.cpp
+        src/imgui_widgets.cpp
+        src/imgui.cpp)
     fips_end_lib()
     fips_begin_lib(imgui-docking)
-        fips_src(src-docking)
+    fips_files(
+        src-docking/cimgui.cpp
+        src-docking/imgui_demo.cpp
+        src-docking/imgui_draw.cpp
+        src-docking/imgui_tables.cpp
+        src-docking/imgui_widgets.cpp
+        src-docking/imgui.cpp)
     fips_end_lib()
 else()
     cmake_minimum_required(VERSION 3.20)

@@ -1,3 +1,6 @@
+// FIXME: switch to zimgui.cpp/zimgui.h (those don't have a function name prefix)
+// but this needs support in sokol_imgui.h (currently sokol_imgui.h expects the
+// ig prefix when compiled in C mode)
 const std = @import("std");
 const builtin = @import("builtin");
 
