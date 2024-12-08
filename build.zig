@@ -1,6 +1,6 @@
-// FIXME: switch to zimgui.cpp/zimgui.h (those don't have a function name prefix)
-// but this needs support in sokol_imgui.h (currently sokol_imgui.h expects the
-// ig prefix when compiled in C mode)
+// NOTE: unfortunately switching to the 'prefix-less' functions in
+// zimgui.h isn't that easy because some Dear ImGui functions collide
+// with Win32 function (Set/GetCursorPos and Set/GetWindowPos).
 const std = @import("std");
 const builtin = @import("builtin");
 
@@ -17,7 +17,7 @@ pub fn build(b: *std.Build) void {
     lib_cimgui.linkLibCpp();
     lib_cimgui.addCSourceFiles(.{
         .files = &.{
-            "src/zimgui.cpp",
+            "src/cimgui.cpp",
             "src/imgui_demo.cpp",
             "src/imgui_draw.cpp",
             "src/imgui_tables.cpp",
@@ -34,7 +34,7 @@ pub fn build(b: *std.Build) void {
     // NOTE: running this step with the host target is intended to avoid
     // any Emscripten header search path shenanigans
     const translateC = b.addTranslateC(.{
-        .root_source_file = b.path("src/zimgui.h"),
+        .root_source_file = b.path("src/cimgui.h"),
         .target = b.host,
         .optimize = optimize,
     });
