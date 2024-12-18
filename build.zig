@@ -35,7 +35,7 @@ pub fn build(b: *std.Build) void {
     // any Emscripten header search path shenanigans
     const translateC = b.addTranslateC(.{
         .root_source_file = b.path("src/cimgui.h"),
-        .target = b.host,
+        .target = b.graph.host,
         .optimize = optimize,
     });
 
