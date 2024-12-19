@@ -1,6 +1,6 @@
 [![Build](https://github.com/floooh/dcimgui/actions/workflows/build.yml/badge.svg)](https://github.com/floooh/dcimgui/actions/workflows/build.yml)
 
-An version-tagged all-in-one [Dear ImGui](https://github.com/ocornut/imgui)
+A version-tagged all-in-one [Dear ImGui](https://github.com/ocornut/imgui)
 source distribution repository for C, C++ and Zig coding with:
 
 - regular and docking flavours of Dear ImGui
