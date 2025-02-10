@@ -2356,6 +2356,11 @@ CIMGUI_API bool             cimgui::igIsMouseDoubleClicked(ImGuiMouseButton butt
     return ::ImGui::IsMouseDoubleClicked(button);
 }
 
+CIMGUI_API bool             cimgui::igIsMouseReleasedWithDelay(ImGuiMouseButton button, float delay)
+{
+    return ::ImGui::IsMouseReleasedWithDelay(button, delay);
+}
+
 CIMGUI_API int              cimgui::igGetMouseClickedCount(ImGuiMouseButton button)
 {
     return ::ImGui::GetMouseClickedCount(button);
@@ -3449,14 +3454,14 @@ CIMGUI_API void                   cimgui::ImFontAtlas_ClearInputData(cimgui::ImF
     reinterpret_cast<::ImFontAtlas*>(self)->ClearInputData();
 }
 
-CIMGUI_API void                   cimgui::ImFontAtlas_ClearTexData(cimgui::ImFontAtlas* self)
-{
-    reinterpret_cast<::ImFontAtlas*>(self)->ClearTexData();
-}
-
 CIMGUI_API void                   cimgui::ImFontAtlas_ClearFonts(cimgui::ImFontAtlas* self)
 {
     reinterpret_cast<::ImFontAtlas*>(self)->ClearFonts();
+}
+
+CIMGUI_API void                   cimgui::ImFontAtlas_ClearTexData(cimgui::ImFontAtlas* self)
+{
+    reinterpret_cast<::ImFontAtlas*>(self)->ClearTexData();
 }
 
 CIMGUI_API void                   cimgui::ImFontAtlas_Clear(cimgui::ImFontAtlas* self)
