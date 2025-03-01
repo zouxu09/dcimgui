@@ -4,10 +4,15 @@
 const std = @import("std");
 const builtin = @import("builtin");
 
-pub fn build(b: *std.Build) void {
+pub fn build(b: *std.Build) !void {
     const target = b.standardTargetOptions(.{});
     const optimize = b.standardOptimizeOption(.{});
 
+    var cflags = try std.BoundedArray([]const u8, 64).init(0);
+    if (target.result.cpu.arch.isWasm()) {
+        // on WASM, switch off UBSAN
+        try cflags.append("-fno-sanitize=undefined");
+    }
     const lib_cimgui = b.addStaticLibrary(.{
         .name = "cimgui_clib",
         .target = target,
@@ -24,6 +29,8 @@ pub fn build(b: *std.Build) void {
             "src/imgui_widgets.cpp",
             "src/imgui.cpp",
         },
+        // turn off UBSAN because it causes
+        .flags = cflags.slice(),
     });
 
     // make cimgui available as artifact, this allows to inject
