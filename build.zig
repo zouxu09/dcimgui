@@ -10,7 +10,8 @@ pub fn build(b: *std.Build) !void {
 
     var cflags = try std.BoundedArray([]const u8, 64).init(0);
     if (target.result.cpu.arch.isWasm()) {
-        // on WASM, switch off UBSAN
+        // on WASM, switch off UBSAN (zig-cc enables this by default in debug mode)
+        // but it requires linking with an ubsan runtime)
         try cflags.append("-fno-sanitize=undefined");
     }
     const lib_cimgui = b.addStaticLibrary(.{
@@ -29,7 +30,6 @@ pub fn build(b: *std.Build) !void {
             "src/imgui_widgets.cpp",
             "src/imgui.cpp",
         },
-        // turn off UBSAN because it causes
         .flags = cflags.slice(),
     });
 
