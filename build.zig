@@ -8,17 +8,25 @@ pub fn build(b: *std.Build) !void {
     const target = b.standardTargetOptions(.{});
     const optimize = b.standardOptimizeOption(.{});
 
+    const opt_dylib = b.option(bool, "dylib", "Builds sokol_clib as dylib") orelse false;
+
     var cflags = try std.BoundedArray([]const u8, 64).init(0);
     if (target.result.cpu.arch.isWasm()) {
         // on WASM, switch off UBSAN (zig-cc enables this by default in debug mode)
         // but it requires linking with an ubsan runtime)
         try cflags.append("-fno-sanitize=undefined");
     }
-    const lib_cimgui = b.addStaticLibrary(.{
+    const lib_cimgui = b.addLibrary(.{
         .name = "cimgui_clib",
-        .target = target,
-        .optimize = optimize,
-        .link_libc = true,
+        .linkage = switch (opt_dylib) {
+            true => .dynamic,
+            else => .static,
+        },
+        .root_module = b.addModule("cimgui_clib", .{
+            .target = target,
+            .optimize = optimize,
+            .link_libc = true,
+        }),
     });
     lib_cimgui.linkLibCpp();
     lib_cimgui.addCSourceFiles(.{
