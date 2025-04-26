@@ -8,7 +8,7 @@ pub fn build(b: *std.Build) !void {
     const target = b.standardTargetOptions(.{});
     const optimize = b.standardOptimizeOption(.{});
 
-    const opt_dylib = b.option(bool, "dylib", "Builds sokol_clib as dylib") orelse false;
+    const opt_dynamic_linkage = b.option(bool, "dynamic_linkage", "Builds cimgui_clib artifact with dynamic linkage.") orelse false;
 
     var cflags = try std.BoundedArray([]const u8, 64).init(0);
     if (target.result.cpu.arch.isWasm()) {
@@ -16,20 +16,15 @@ pub fn build(b: *std.Build) !void {
         // but it requires linking with an ubsan runtime)
         try cflags.append("-fno-sanitize=undefined");
     }
-    const lib_cimgui = b.addLibrary(.{
-        .name = "cimgui_clib",
-        .linkage = switch (opt_dylib) {
-            true => .dynamic,
-            else => .static,
-        },
-        .root_module = b.addModule("cimgui_clib", .{
-            .target = target,
-            .optimize = optimize,
-            .link_libc = true,
-        }),
+
+    // build cimgui_clib as a module
+    const module_cimgui_clib = b.addModule("mod_cimgui_clib", .{
+        .target = target,
+        .optimize = optimize,
+        .link_libc = true,
+        .link_libcpp = true,
     });
-    lib_cimgui.linkLibCpp();
-    lib_cimgui.addCSourceFiles(.{
+    module_cimgui_clib.addCSourceFiles(.{
         .files = &.{
             "src/cimgui.cpp",
             "src/imgui_demo.cpp",
@@ -43,6 +38,14 @@ pub fn build(b: *std.Build) !void {
 
     // make cimgui available as artifact, this allows to inject
     // the Emscripten sysroot include path in another build.zig
+    const lib_cimgui = b.addLibrary(.{
+        .name = "cimgui_clib",
+        .linkage = switch (opt_dynamic_linkage) {
+            false => .static,
+            true => .dynamic,
+        },
+        .root_module = module_cimgui_clib,
+    });
     b.installArtifact(lib_cimgui);
 
     // translate-c the cimgui.h file
