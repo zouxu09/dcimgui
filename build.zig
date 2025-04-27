@@ -18,13 +18,13 @@ pub fn build(b: *std.Build) !void {
     }
 
     // build cimgui_clib as a module
-    const module_cimgui_clib = b.addModule("mod_cimgui_clib", .{
+    const mod_cimgui_clib = b.addModule("mod_cimgui_clib", .{
         .target = target,
         .optimize = optimize,
         .link_libc = true,
         .link_libcpp = true,
     });
-    module_cimgui_clib.addCSourceFiles(.{
+    mod_cimgui_clib.addCSourceFiles(.{
         .files = &.{
             "src/cimgui.cpp",
             "src/imgui_demo.cpp",
@@ -40,11 +40,8 @@ pub fn build(b: *std.Build) !void {
     // the Emscripten sysroot include path in another build.zig
     const lib_cimgui = b.addLibrary(.{
         .name = "cimgui_clib",
-        .linkage = switch (opt_dynamic_linkage) {
-            false => .static,
-            true => .dynamic,
-        },
-        .root_module = module_cimgui_clib,
+        .linkage = if (opt_dynamic_linkage) .dynamic else .static,
+        .root_module = mod_cimgui_clib,
     });
     b.installArtifact(lib_cimgui);
 
